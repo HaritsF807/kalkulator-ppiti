@@ -1,0 +1,169 @@
+:root {
+    /* Color Palette */
+    --bg-color: #0f172a;
+    --calc-bg: rgba(30, 41, 59, 0.7);
+    --calc-border: rgba(255, 255, 255, 0.1);
+    --calc-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    
+    --btn-bg: rgba(255, 255, 255, 0.05);
+    --btn-bg-hover: rgba(255, 255, 255, 0.1);
+    --btn-bg-active: rgba(255, 255, 255, 0.15);
+    
+    --btn-operator: rgba(14, 165, 233, 0.2);
+    --btn-operator-text: #38bdf8;
+    --btn-operator-hover: rgba(14, 165, 233, 0.3);
+    
+    --btn-action: rgba(244, 63, 94, 0.2);
+    --btn-action-text: #fb7185;
+    --btn-action-hover: rgba(244, 63, 94, 0.3);
+    
+    --btn-equals: #0ea5e9;
+    --btn-equals-hover: #0284c7;
+    --btn-equals-text: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(244, 63, 94, 0.15) 0px, transparent 50%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator-container {
+    padding: 2rem;
+}
+
+.calculator {
+    background: var(--calc-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--calc-border);
+    border-radius: 24px;
+    padding: 24px;
+    width: 320px;
+    box-shadow: var(--calc-shadow);
+}
+
+.display {
+    text-align: right;
+    margin-bottom: 24px;
+    padding: 16px 8px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.previous-operand {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    min-height: 1.5rem;
+    margin-bottom: 4px;
+    font-weight: 400;
+}
+
+.current-operand {
+    color: var(--text-primary);
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.btn {
+    border: none;
+    outline: none;
+    background: var(--btn-bg);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    border-radius: 16px;
+    height: 60px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:hover {
+    background: var(--btn-bg-hover);
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    background: var(--btn-bg-active);
+    transform: translateY(1px);
+}
+
+.btn-operator {
+    background: var(--btn-operator);
+    color: var(--btn-operator-text);
+}
+
+.btn-operator:hover {
+    background: var(--btn-operator-hover);
+}
+
+.btn-action {
+    background: var(--btn-action);
+    color: var(--btn-action-text);
+}
+
+.btn-action:hover {
+    background: var(--btn-action-hover);
+}
+
+.btn-equals {
+    background: var(--btn-equals);
+    color: var(--btn-equals-text);
+}
+
+.btn-equals:hover {
+    background: var(--btn-equals-hover);
+}
+
+.span-2 {
+    grid-column: span 2;
+    border-radius: 30px; /* Pill shape for wider button */
+}
+
+/* Micro-animations on load */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.calculator {
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
