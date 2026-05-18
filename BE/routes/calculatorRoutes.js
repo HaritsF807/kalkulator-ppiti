@@ -1,18 +1,16 @@
 const calculatorController = require("../controller/calculatorController");
+const indexHandler = require("../api/index");
 
 const calculatorRoutes = (req, res) => {
   const url = req.url;
   const method = req.method;
 
-  if (url === "/calculate" && method === "POST") {
-    return calculatorController.calculate(req, res);
+  if (url === "/" && method === "GET") {
+    return indexHandler(req, res);
   }
 
-  if (url === "/" && method === "GET") {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    return res.end(
-      JSON.stringify({ message: "API Kalkulator PPITI - Pure Node.js" })
-    );
+  if (url === "/calculate" && method === "POST") {
+    return calculatorController.calculate(req, res);
   }
 
   res.writeHead(404, { "Content-Type": "application/json" });

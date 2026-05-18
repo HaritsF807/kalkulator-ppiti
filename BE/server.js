@@ -9,4 +9,5 @@ const PORT = 3000;
 
 server.listen(PORT, () => {
   console.log(`Server berjalan di port ${PORT}`);
+  console.log(`Buka browser: http://localhost:${PORT}`);
 });
