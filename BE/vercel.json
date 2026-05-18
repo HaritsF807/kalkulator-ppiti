@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "/calculate", "dest": "/api/calculate" },
+    { "src": "/",          "dest": "/api/index"     }
+  ]
+}

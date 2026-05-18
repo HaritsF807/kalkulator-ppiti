@@ -1,20 +1,41 @@
-const calculatorService = require('../services/calculatorService');
+const calculatorService = require("../services/calculatorService");
 
 exports.calculate = (req, res) => {
-  try {
-    const { a, b, operator } = req.body;
+  let body = "";
+
+  req.on("data", (chunk) => {
+    body += chunk.toString();
+  });
+
+  req.on("end", () => {
+    let data;
+
+    try {
+      data = JSON.parse(body);
+    } catch {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      return res.end(
+        JSON.stringify({ success: false, message: "Format JSON tidak valid" })
+      );
+    }
+
+    const { a, b, operator } = data;
 
     if (a === undefined || !operator) {
-      return res.status(400).json({ success: false, message: 'Data tidak lengkap' });
+      res.writeHead(400, { "Content-Type": "application/json" });
+      return res.end(
+        JSON.stringify({ success: false, message: "Field a dan operator wajib diisi" })
+      );
     }
 
     const result = calculatorService.calculate(a, b, operator);
 
-    res.status(200).json({
-      success: true,
-      data: { a, b, operator, result }
-    });
-  } catch (error) {
-    res.status(400).json({ success: false, message: error.message });
-  }
+    if (result.error) {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      return res.end(JSON.stringify({ success: false, message: result.error }));
+    }
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ success: true, data: result }));
+  });
 };
